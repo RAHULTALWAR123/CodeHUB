@@ -5,11 +5,33 @@ import { api } from "../../../../convex/_generated/api";
 import { Activity, Code2, Star, Timer, TrendingUp, Trophy, UserIcon, Zap } from "lucide-react";
 import {motion } from "framer-motion";
 
+import { UserResource } from "@clerk/types";
+import { Id } from "../../../../convex/_generated/dataModel";
+
 type ProfileHeaderProps = {
-    userStats:any,
-    userData:any,
-    user:any
+     userStats: {
+    totalExecutions: number;
+    languagesCount: number;
+    languages: string[];
+    last24Hours: number;
+    favoriteLanguage: string;
+    languageStats: Record<string, number>;
+    mostStarredLanguage: string;
+  };
+  userData: {
+    _id: Id<"users">;
+    _creationTime: number;
+    proSince?: number | undefined;
+    lemonSqueezyCustomerId?: string | undefined;
+    lemonSqueezyOrderId?: string | undefined;
+    name: string;
+    userId: string;
+    email: string;
+    isPro: boolean;
+  };
+  user: UserResource;
 }
+
 
 function ProfileHeader({userStats,userData,user}:ProfileHeaderProps) {
     const starredSnippets = useQuery(api.snippets.getStarredSnippets);
